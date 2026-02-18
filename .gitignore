@@ -1,0 +1,24 @@
+# Miscellaneous
+*.class
+*.log
+.DS_Store
+*.iml
+.idea/
+
+# Flutter/Dart
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.pub-cache/
+.pub/
+build/
+
+# Platform
+**/ios/Flutter/.last_build_id
+**/android/app/debug
+**/android/app/profile
+**/android/app/release
+
+# Symbolication / obfuscation
+app.*.symbols
+app.*.map.json
