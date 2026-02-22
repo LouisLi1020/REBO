@@ -3,9 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class RedButton extends StatefulWidget {
-  const RedButton({super.key, required this.onPressed});
+  const RedButton({
+    super.key,
+    required this.onPressed,
+    this.buttonColor,
+    this.soundAssetPath,
+  });
 
   final VoidCallback onPressed;
+  final Color? buttonColor;
+  /// Asset path for click sound, e.g. 'audio/click.mp3'.
+  final String? soundAssetPath;
 
   @override
   State<RedButton> createState() => _RedButtonState();
@@ -48,7 +56,9 @@ class _RedButtonState extends State<RedButton>
     try {
       final player = _audioPlayers[_currentPlayerIndex];
       await player.stop();
-      await player.play(AssetSource('audio/click.mp3'));
+      await player.play(
+        AssetSource(widget.soundAssetPath ?? 'audio/click.mp3'),
+      );
       _currentPlayerIndex = (_currentPlayerIndex + 1) % _maxAudioPlayers;
     } catch (e) {
       debugPrint('Error playing sound: $e');
@@ -89,11 +99,12 @@ class _RedButtonState extends State<RedButton>
           width: 200,
           height: 200,
           decoration: BoxDecoration(
-            color: Colors.red,
+            color: widget.buttonColor ?? Colors.red,
             shape: BoxShape.circle,
             boxShadow: [
               BoxShadow(
-                color: Colors.red.withValues(alpha: 0.3),
+                color: (widget.buttonColor ?? Colors.red)
+                    .withValues(alpha: 0.3),
                 blurRadius: 20,
                 spreadRadius: 5,
               ),
